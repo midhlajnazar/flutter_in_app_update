@@ -177,11 +177,16 @@ class InAppUpdatePlugin : FlutterPlugin, MethodCallHandler,
                     && appUpdateType == AppUpdateType.IMMEDIATE
                 ) {
                     try {
-                        appUpdateManager?.startUpdateFlowForResult(
-                            appUpdateInfo,
-                            AppUpdateType.IMMEDIATE,
-                            activity,
-                            REQUEST_CODE_START_UPDATE
+//                        appUpdateManager?.startUpdateFlowForResult(
+//                            appUpdateInfo,
+//                            AppUpdateType.IMMEDIATE,
+//                            activity,
+//                            REQUEST_CODE_START_UPDATE
+//                        )
+                        appUpdateManager?.startUpdateFlow(
+                            appUpdateInfo!!,
+                            activityProvider!!.activity(),
+                            AppUpdateOptions.defaultOptions(AppUpdateType.IMMEDIATE)
                         )
                     } catch (e: SendIntentException) {
                         Log.e("in_app_update", "Could not start update flow", e)
@@ -194,11 +199,16 @@ class InAppUpdatePlugin : FlutterPlugin, MethodCallHandler,
         appUpdateType = AppUpdateType.IMMEDIATE
         updateResult = result
 
-        appUpdateManager?.startUpdateFlowForResult(
+//        appUpdateManager?.startUpdateFlowForResult(
+//            appUpdateInfo!!,
+//            activityProvider!!.activity(),
+//            AppUpdateOptions.defaultOptions(AppUpdateType.IMMEDIATE),
+//            REQUEST_CODE_START_UPDATE
+//        )
+        appUpdateManager?.startUpdateFlow(
             appUpdateInfo!!,
             activityProvider!!.activity(),
-            AppUpdateOptions.defaultOptions(AppUpdateType.IMMEDIATE),
-            REQUEST_CODE_START_UPDATE
+            AppUpdateOptions.defaultOptions(AppUpdateType.IMMEDIATE)
         )
     }
 
@@ -218,11 +228,16 @@ class InAppUpdatePlugin : FlutterPlugin, MethodCallHandler,
     private fun startFlexibleUpdate(result: Result) = checkAppState(result) {
         appUpdateType = AppUpdateType.FLEXIBLE
         updateResult = result
-        appUpdateManager?.startUpdateFlowForResult(
+//        appUpdateManager?.startUpdateFlowForResult(
+//            appUpdateInfo!!,
+//            activityProvider!!.activity(),
+//            AppUpdateOptions.defaultOptions(AppUpdateType.FLEXIBLE),
+//            REQUEST_CODE_START_UPDATE
+//        )
+        appUpdateManager?.startUpdateFlow(
             appUpdateInfo!!,
             activityProvider!!.activity(),
-            AppUpdateOptions.defaultOptions(AppUpdateType.FLEXIBLE),
-            REQUEST_CODE_START_UPDATE
+            AppUpdateOptions.defaultOptions(AppUpdateType.FLEXIBLE)
         )
 
         appUpdateManager?.registerListener { state ->
